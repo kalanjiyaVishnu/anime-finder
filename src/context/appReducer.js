@@ -1,5 +1,10 @@
 export default (state, action) => {
   switch (action.type) {
+    case "GET_FIRST":
+      return {
+        ...state,
+        watchList: action.payload,
+      };
     case "ADD_MOVIES_TO_WATCHLIST":
       console.log("added to state");
       return { ...state, watchList: [action.payload, ...state.watchList] };

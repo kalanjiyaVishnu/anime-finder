@@ -2,17 +2,19 @@ import React, { useContext } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 import Mock from "../../components/Mock";
 import Projects from "../../components/Projects";
+import { getUserAnimes } from "../../services/firebase";
 
 const Profile = () => {
-  const { watchList } = useContext(GlobalContext);
-  console.log(watchList);
+  const { watchList, loader } = useContext(GlobalContext);
 
   return (
-    <div>
+    <div className="mt-16">
       <h1 className="text-2xl font-semibold text-gray-900 text-opacity-90 my-4">
         Watch List{" "}
       </h1>
-      <Projects data={{ feed: watchList, type: "live" }} isLoading={false} />
+      {!loader && (
+        <Projects data={{ feed: watchList, type: "live" }} isLoading={false} />
+      )}
     </div>
   );
 };

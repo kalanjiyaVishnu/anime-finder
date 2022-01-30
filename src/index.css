@@ -9,24 +9,41 @@
   padding: 0;
   box-sizing: border;
 }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
+body{
+  font-family: "Poppins";
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-.pop{
-  font-family: "Poppins";
-}
 .DropShadow{
     box-shadow: rgba(149, 157, 165, 0.15) 0px 3px 6px 0px
   }
 
+  .impBgGrey{
+    background-color: #242526 !important;
+  }
 
-  
+  .makeItTop{
+    z-index: 999 !important;
+  }
+
+  body{
+    background: rgb(236, 236, 236);
+    overflow: hidden;
+  }
+  .app{
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    padding-right: 17px; /* Increase/decrease this value for cross-browser compatibility */
+    box-sizing: content-box;
+  }
+  ::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: #FF0000;
+}

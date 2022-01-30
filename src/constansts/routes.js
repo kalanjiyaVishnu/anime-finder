@@ -6,4 +6,5 @@ export const JOIN_PROJECT = "/join-project";
 export const Live_fet = "http://localhost:5000/Live";
 export const up_fet = "http://localhost:5000/upcomming";
 export const search = '/search';
+export const PROFILE = '/profile';
 

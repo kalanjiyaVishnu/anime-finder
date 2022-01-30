@@ -1,122 +1,201 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
-import Logo_M from "./wd.png";
 import * as ROUTES from "../constansts/routes";
-import { FireBaseContext } from "../context/fireBaseContext";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { Fragment } from "react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { signOut } from "firebase/auth";
+import { auth } from "../lib/firebase";
+import { UserContext } from "../context/userContext";
+import {useNavigate} from 'react-router-dom'
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
 export default function NavBar({ handleSearch }) {
-  const Location = useLocation();
-  const { firebase } = useContext(FireBaseContext);
-
-  const [user] = useAuthState(firebase.auth());
-
+  const navigate = useNavigate();
+  const { user } = useContext(UserContext);
   const [showSearch, setShowSearch] = useState(false);
-  useEffect(() => {
-    console.log(Location.pathname.length);
-    if (Location.pathname.toLowerCase().includes("search")) {
-      setShowSearch(true);
-      inputRef.current.focus();
-    }
-  }, []);
+  const Location = useLocation();
+
+  let someThingNeedHidding = Location.pathname.startsWith("/anime");
   const inputRef = useRef(null);
 
-  const getSearchClass = () => {
-    return `bg-gray-400 appearance-none border-2 border-gray-800 bg-opacity-50
-    border-opacity-5 rounded md:block py-2 px-4 text-gray-800  leading-tight focus:outline-none focus:bg-white focus:border-gray-800 hover:bg-opacity-5 focus:border-opacity-50 shadow-sm placeholder-gray-800 transform transition-colors duration-300 mr-2 w-1/2 ml-auto md:w-full ${
-      !showSearch ? "hidden" : "focus:bg-gray-300"
-    }`;
-  };
+  // Location.pathname.toLowerCase().includes("search") &&
+  //   inputRef.current.focus();
   return (
     <div
-      className={`w-full h-10 my-2 flex items-center mx-auto z-50 relative ${
-        Location.pathname.startsWith("/anime") && "text-white-light"
-      }`}
+      className={`z-50  fixedinset-0 bg-cgray-700 transform transition-all duration-300 text-white-light h-16  flex items-center justify-between  px-16`}
     >
-      <div className="flex items-center">
-        {/* <img src={Logo_M} className="w-16" alt="" /> */}
-
-        {user ? (
-          <div className="flex text-xl">
-            <h1>Hello,</h1> <strong>{user.displayName}</strong>
-          </div>
-        ) : (
-          <h1 className="font-medium text-2xl">Noted.</h1>
+      <div className="flex items-center cursor-pointer" onClick={() => navigate("/")}>
+        {!someThingNeedHidding &&
+          (user ? (
+            <div className="text-lg opacity-90">
+              Hello,{" "}
+              <strong className="text-2xl font-semibold">
+                {user.displayName}
+              </strong>
+            </div>
+          ) : (
+            <h1 className="font-medium text-2xl">Noted.</h1>
+          ))}
+        {someThingNeedHidding && (
+          <h1 className="font-medium text-2xl">sideEffects</h1>
         )}
       </div>
-      <div className="ml-auto flex items-center px-2">
-        {!Location.pathname.startsWith("/anime") && (
-          <div className="ml-auto flex items-center">
-            {Location.pathname === "/search" && (
-              <input
-                type="text"
-                placeholder="one piece.."
-                className={getSearchClass()}
-                onChange={(e) => handleSearch(e)}
-                ref={inputRef}
+      <div className="flex items-center px-2">
+        {Location.pathname === "/search" && (
+          <input
+            type="text"
+            placeholder="one piece.."
+            className={`appearance-none md:block 
+              rounded py-2 px-4 text-gray-800 w-auto focus:outline-none focus:bg-white focus:border-gray-800 hover:bg-opacity-5 focus:border-opacity-50  placeholder-gray-800 transform transition-colors duration-300 mr-2 focus:bg-gray-300 ${
+                !showSearch && "hidden"
+              }`}
+            onChange={handleSearch}
+            ref={inputRef}
+          />
+        )}
+        {(Location.pathname.length == 1 ||
+          Location.pathname.toLowerCase().includes("/search")) && (
+          <Link
+            to="/search"
+            className=" opacity-40 hover:opacity-90 transform transition-all duration-150 ease-in-out"
+            onClick={() => {
+              // if (inputRef) inputRef.current.focus();
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 "
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                clipRule="evenodd"
               />
-            )}
-
-            {(Location.pathname.length == 1 ||
-              Location.pathname.toLowerCase().includes("/search")) && (
-              <Link
-                to="/search"
-                className=" opacity-40 hover:opacity-90 transform transition-all duration-150 ease-in-out"
-                onClick={() => {
-                  // if (inputRef) inputRef.current.focus();
-                }}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 "
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </Link>
-            )}
+            </svg>
+          </Link>
+        )}
+        {user ? (
+          <Menu as="div" className="ml-3 relative">
+            <div>
+              <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                <span className="sr-only">Open user menu</span>
+                <img
+                  className="h-8 w-8 rounded-full object-cover"
+                  src={user.photoURL}
+                  alt=""
+                />
+              </Menu.Button>
+            </div>
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items className="bg-white-dull origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <Menu.Item>
+                  {({ active }) => (
+                    <Link
+                      to={ROUTES.PROFILE}
+                      className={classNames(
+                        active ? "bg-gray-100" : "",
+                        "block px-4 py-2 text-sm text-gray-700"
+                      )}
+                    >
+                      Your Profile
+                    </Link>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <Link
+                      to="/settings"
+                      className={classNames(
+                        active ? "bg-gray-100" : "",
+                        "block px-4 py-2 text-sm text-gray-700"
+                      )}
+                    >
+                      Settings
+                    </Link>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <div
+                      className={classNames(
+                        active ? "bg-gray-100 cursor-pointer" : "",
+                        "px-4 py-2 text-sm text-gray-700 w-full"
+                      )}
+                      onClick={async () => {
+                        await signOut(auth);
+                      }}
+                    >
+                      Sign out
+                    </div>
+                  )}
+                </Menu.Item>
+              </Menu.Items>
+            </Transition>
+          </Menu>
+        ) : (
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                clipRule="evenodd"
+              />
+            </svg>
           </div>
         )}
-        {Location.pathname === "/" && (
-            <>
-              {/* <Link
-              to={ROUTES.LOGIN}
-              className="mx-2 text-cgray-lightest bg-green-best rounded-sm px-2 py-1 shadow-md transform hover:-translate-y-1 transition-all duration-200"
-            >
-              login
-            </Link>
-            <Link
-              to={ROUTES.REGISTER}
-              className="text-green-best transform hover:-translate-y-1 transition-all duration-200"
-            >
-              signup
-            </Link> */}
-            </>
-          ) && (
-            <Link
-              to="/profile"
-              className="opacity-40 hover:opacity-90 transform transition-all duration-150 ease-in-out px-2"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </Link>
-          )}
       </div>
     </div>
   );
 }
+
+// {Location.pathname === "/" && (
+//     <>
+//       {/* <Link
+//       to={ROUTES.LOGIN}
+//       className="mx-2 text-cgray-lightest bg-green-best rounded-sm px-2 py-1 shadow-md transform hover:-translate-y-1 transition-all duration-200"
+//     >
+//       login
+//     </Link>
+//     <Link
+//       to={ROUTES.REGISTER}
+//       className="text-green-best transform hover:-translate-y-1 transition-all duration-200"
+//     >
+//       signup
+//     </Link> */}
+//     </>
+//   ) && (
+//     <Link
+//       to="/profile"
+//       className="opacity-40 hover:opacity-90 transform transition-all duration-150 ease-in-out px-2"
+//     >
+//       <svg
+//         xmlns="http://www.w3.org/2000/svg"
+//         className="h-6 w-6"
+//         viewBox="0 0 20 20"
+//         fill="currentColor"
+//       >
+//         <path
+//           fillRule="evenodd"
+//           d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+//           clipRule="evenodd"
+//         />
+//       </svg>
+//     </Link>
+//   )}

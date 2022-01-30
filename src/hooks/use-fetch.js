@@ -6,14 +6,16 @@ export function useFetch(url) {
   const [loading, setloading] = useState(true);
   const [error, setError] = useState({});
   useEffect(() => {
-    fetchDataFromApi(url)
-      .then((res) => {
-        setloading(true);
-        setState(res);
-        setloading(false);
-      })
-      .catch((err) => setError(err));
-  }, [url]);
+    if (url) {
+      fetchDataFromApi(url)
+        .then((res) => {
+          setloading(true);
+          setState(res);
+          setloading(false);
+        })
+        .catch((err) => setError(err));
+    }
+  }, []);
 
-  return { State, loading, error };
+  return [State, loading, error];
 }
