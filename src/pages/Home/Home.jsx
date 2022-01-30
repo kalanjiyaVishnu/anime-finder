@@ -56,11 +56,11 @@ export const Home = ({ handleSearch }) => {
 const HomeTop = () => {
   const navigateTo = useNavigate();
   return (
-    <div className="flex flex-col mb-4 w-full">
+    <div className="flex flex-col mb-4 w-full -z-20">
       <br />
-      <main className="mx-auto text-center flex items-center justify-center max-h-40 group hover:scale-105 transform-gpu transition-all duration-150 shadow md:h-32 overflow-hidden rounded-md relative w-60  h-20 md:w-8/12 hover:cursor-pointer">
+      <main className="mx-auto text-center flex items-center justify-center max-h-40 group hover:scale-105 transform-gpu transition-all duration-150 shadow md:h-32  overflow-hidden rounded-md relative w-60  h-20 md:w-8/12 hover:cursor-pointer">
         <div
-          className=" border-none bg-black absolute"
+          className=" border-none bg-black absolute -z-20"
           onClick={() => {
             navigateTo(ROUTES.CREATE_NEW_PROJECT);
           }}
@@ -70,7 +70,7 @@ const HomeTop = () => {
           <img
             src={addNew}
             alt="..."
-            className="object-contain mt-0 opacity-75 sm:object-cover sm:-mt-20 group-hover:opacity-60 transform-gpu transition-opacity duration-150"
+            className="object-contain mt-0 opacity-75 sm:object-cover sm:-mt-20 group-hover:opacity-60 transform-gpu transition-opacity duration-150 -z-20"
           />
         </div>
         <span className="text-white-light group-hover:text-sm text-xl transform transition-all duration-150">

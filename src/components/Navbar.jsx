@@ -21,6 +21,9 @@ export default function NavBar({ handleSearch }) {
     Location.pathname.startsWith("/anime") ||
     Location.pathname.startsWith("/search");
   const inputRef = useRef(null);
+  useEffect(() => {
+    console.log(document.body.clientWidth);
+  }, []);
 
   // Location.pathname.toLowerCase().includes("search") &&
   //   inputRef.current.focus();
@@ -34,16 +37,16 @@ export default function NavBar({ handleSearch }) {
       >
         {!someThingNeedHidding &&
           (user ? (
-            <div className="text-lg opacity-90">
+            <div className="text-lg opacity-90 md:block hidden">
               Hello,{" "}
               <strong className="text-2xl font-semibold">
                 {user.displayName}
               </strong>
             </div>
           ) : (
-            <h1 className="font-medium text-2xl">Noted.</h1>
+            <h1 className="font-medium text-2xl">sideEffects</h1>
           ))}
-        {someThingNeedHidding && (
+        {(someThingNeedHidding || document.body.clientWidth < 600) && (
           <h1 className="font-medium text-2xl">sideEffects</h1>
         )}
       </div>
