@@ -9,7 +9,7 @@ import Search from "./components/Search";
 import Anime from "./components/Anime";
 import Profile from "./pages/Home/Profile";
 import Register from "./pages/Register";
-import Dev from "./pages/Dev";
+import About from "./pages/About";
 import { UserContext } from "./context/userContext";
 
 // import { lazy } from "react";
@@ -81,7 +81,7 @@ function App() {
             />
             <Route path="/anime/:name/:id" element={<Anime />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/dev" element={<Dev />} />
+            <Route path="/about" element={<About />} />
           </Route>
           <Route path="*" element={<Error />} />
         </Routes>
