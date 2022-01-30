@@ -43,7 +43,7 @@ export const ContextProvider = ({ children }) => {
         );
       });
     }
-  }, []);
+  }, [user]);
   const getFirst = (snapDATA) => {
     console.log("snapDATA", snapDATA);
     dispatch({ type: "GET_FIRST", payload: snapDATA });
