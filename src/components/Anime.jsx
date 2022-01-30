@@ -38,8 +38,9 @@ export default function Anime({ addNew }) {
         (local_anime) => local_anime.animeID === data.animeID
       );
       console.log("isAnimeAdded", isAnimeAdded);
-
-      setEachAnime(data);
+      if (isAnimeAdded) {
+        setEachAnime(isAnimeAdded);
+      } else setEachAnime(data);
 
       if (isAnimeAdded) {
         // setEachAnime((old) => {
@@ -103,6 +104,7 @@ export default function Anime({ addNew }) {
                     if (isAdded) {
                       // removeFromWatchList(eachAnime.id);
                       removeFromFireStore(eachAnime.docid);
+                      console.log(eachAnime);
                       setIsAdded(false);
                     } else {
                       addToFireStore({ userID: user.uid, data: eachAnime });
@@ -160,7 +162,7 @@ export default function Anime({ addNew }) {
                 <BtnLight
                   name="wishlist"
                   icon={<FaHeart height={6} width={6} />}
-                  onClick={()=>alert("it dosnt work for now 🙂")}
+                  onClick={() => alert("it dosnt work for now 🙂")}
                 />
               </div>
             </div>
@@ -214,9 +216,12 @@ export default function Anime({ addNew }) {
   );
 }
 
-function BtnLight({ name, icon ,onClick}) {
+function BtnLight({ name, icon, onClick }) {
   return (
-    <span className="w-full sm:w-auto flex items-center justify-center text-gray-800 font-medium bg-gray-800 bg-opacity-20 hover:bg-opacity-30 rounded-lg shadow-sm hover:shadow-lg py-3 px-5 border border-white border-opacity-10 transform-gpu hover:-translate-y-0.5 transition-all duration-150 space-x-2 cursor-pointer" onClick={onClick}>
+    <span
+      className="w-full sm:w-auto flex items-center justify-center text-gray-800 font-medium bg-gray-800 bg-opacity-20 hover:bg-opacity-30 rounded-lg shadow-sm hover:shadow-lg py-3 px-5 border border-white border-opacity-10 transform-gpu hover:-translate-y-0.5 transition-all duration-150 space-x-2 cursor-pointer"
+      onClick={onClick}
+    >
       {icon}
       <p>{name}</p>
     </span>
