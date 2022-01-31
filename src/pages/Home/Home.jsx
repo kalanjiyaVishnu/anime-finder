@@ -14,7 +14,7 @@ export const Home = ({ handleSearch }) => {
   let showMain = loc.pathname === "/";
 
   return (
-    <div className="h-screen">
+    <div className="h-screen bg-gray-300">
       <NavBar handleSearch={handleSearch} />
 
       <main className="h-[105%] overflow-scroll container md:max-w-screen-2xl w-5/6 mx-auto ">
