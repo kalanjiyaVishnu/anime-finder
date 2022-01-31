@@ -4,7 +4,7 @@ const Project = ({ details }) => {
   if (!details) return <></>;
   return (
     <Link
-      className="z-10 mr-4 my-2 md:w-96 min-w-fit md:hover:-translate-y-2 transform transition ease-in-out duration-150 flex"
+      className="mr-4 my-2 md:w-96 min-w-fit md:hover:-translate-y-2 transform transition ease-in-out duration-150 flex"
       to={`/anime/${details.head.en_jp.toLowerCase().replace(/\s/g, "")}/${
         details.id
       }`}

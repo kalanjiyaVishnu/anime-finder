@@ -29,7 +29,7 @@ export default function NavBar({ handleSearch }) {
   //   inputRef.current.focus();
   return (
     <div
-      className={`z-50  fixedinset-0 bg-cgray-700 transform transition-all duration-300 text-white-light h-16  flex items-center justify-between  px-16`}
+      className={`z-50  fixed inset-0 bg-cgray-700 transform transition-all duration-300 text-white-light h-16  flex items-center justify-between  px-16 makeItTop`}
     >
       <div
         className="flex items-center cursor-pointer"
@@ -125,7 +125,7 @@ export default function NavBar({ handleSearch }) {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="bg-white-dull origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Menu.Items className="bg-white-dull origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none makeItTop z-50">
                 <Menu.Item>
                   {({ active }) => (
                     <Link
@@ -135,7 +135,7 @@ export default function NavBar({ handleSearch }) {
                         "block px-4 py-2 text-sm text-gray-700"
                       )}
                     >
-                      Your Profile
+                      <span>Your Profile</span>
                     </Link>
                   )}
                 </Menu.Item>
@@ -148,7 +148,10 @@ export default function NavBar({ handleSearch }) {
                         "block px-4 py-2 text-sm text-gray-700"
                       )}
                     >
+                      <span>
+
                       Settings
+                      </span>
                     </Link>
                   )}
                 </Menu.Item>
@@ -187,6 +190,7 @@ export default function NavBar({ handleSearch }) {
           </div>
         )}
       </div>
+      
     </div>
   );
 }

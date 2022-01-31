@@ -8,7 +8,7 @@ const Profile = () => {
   const { watchList, loader } = useContext(GlobalContext);
 
   return (
-    <div className="mt-16">
+    <div className="mt-24">
       <h1 className="text-2xl font-semibold text-gray-900 text-opacity-90 my-4">
         Watch List{" "}
       </h1>

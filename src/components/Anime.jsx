@@ -54,10 +54,10 @@ export default function Anime({ addNew }) {
       setisloading(false);
     });
   }, [loader]);
-  const dummy = useRef(null);
+  
   // bg-gradient-to-r from-purple-700 via-purple-600 to-purple-500
   return (
-    <div className="h-max z-50 py-4 p-4 mt-10">
+    <div className="h-max z-50 py-4 p-4 mt-24">
       {!isloading ? (
         <>
           <div className="z-40added flex md:flex-row w-full flex-col">
@@ -211,7 +211,7 @@ export default function Anime({ addNew }) {
           }, 6000)}
         </div>
       </Transition>
-      <div ref={dummy}></div>
+    
     </div>
   );
 }

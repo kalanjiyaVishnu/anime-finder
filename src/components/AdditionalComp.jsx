@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { Transition, Listbox } from "@headlessui/react";
 import { db } from "../lib/firebase";
 import { SelectorIcon, ReplyIcon } from "@heroicons/react/solid";
@@ -41,6 +41,7 @@ const AdditionalComp = ({ showModel, userID, animeID, PhotoURL }) => {
       addToComments(comment);
     }
   };
+
   return (
     <Transition
       as={Fragment}
@@ -223,9 +224,11 @@ function CommentSection({ animeID, showCMT }) {
     });
     if (!(comments.length > 0)) {
       showCMT();
+    } else {
+      
     }
   }, []);
-
+  const dummy = useRef(null);
   return (
     <div className="h-max">
       {comments.length > 0 ? (
@@ -233,6 +236,7 @@ function CommentSection({ animeID, showCMT }) {
           {comments.map((comment) => (
             <Comment {...comment} sendReply={() => {}} />
           ))}
+          <div ref={dummy}></div>
         </main>
       ) : (
         <div></div>

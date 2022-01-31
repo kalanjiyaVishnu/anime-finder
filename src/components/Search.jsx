@@ -2,9 +2,7 @@ import Project from "./Project";
 import { Loader } from "./Loader";
 export default function Search({ searchres, isLoading, message }) {
   return (
-    <>
-    <br />
-        <br />
+    <div className="h-full mt-24">
       {!message && !isLoading ? (
         searchres.length > 0 ? (
           <div className="w-full">
@@ -23,6 +21,6 @@ export default function Search({ searchres, isLoading, message }) {
       ) : (
         <Loader />
       )}
-    </>
+    </div>
   );
 }
