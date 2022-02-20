@@ -1,8 +1,8 @@
-# it is shit
+# it is s#£t
 
 # just leave it
 
-## or u want to see anyawys
+## or u want to see anyways
 - Local 
    + git clone https://github.com/r1558/anime-finder
    + cd into that folder
